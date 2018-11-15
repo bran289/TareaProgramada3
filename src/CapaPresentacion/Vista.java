@@ -5,6 +5,7 @@
  */
 package CapaPresentacion;
 
+import CapaPresentacion.CRUD.Inscripcion;
 import java.awt.Color;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -38,11 +39,6 @@ public class Vista extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        EquipoNombreTxtField = new javax.swing.JTextField();
-        DescripcionTxtField = new javax.swing.JTextField();
-        imagenLabel = new javax.swing.JLabel();
-        BuscarBtn = new javax.swing.JButton();
         RegistrarBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
@@ -62,43 +58,9 @@ public class Vista extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Information");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Team Registration");
-
-        EquipoNombreTxtField.setForeground(new java.awt.Color(153, 153, 153));
-        EquipoNombreTxtField.setText("Team Name");
-        EquipoNombreTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EquipoNombreTxtFieldMouseClicked(evt);
-            }
-        });
-
-        DescripcionTxtField.setForeground(new java.awt.Color(153, 153, 153));
-        DescripcionTxtField.setText("Project Description");
-        DescripcionTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DescripcionTxtFieldMouseClicked(evt);
-            }
-        });
-
-        imagenLabel.setBackground(new java.awt.Color(133, 35, 35));
-        imagenLabel.setForeground(new java.awt.Color(255, 255, 255));
-        imagenLabel.setText("                                                                  NO IMAGE");
-        imagenLabel.setOpaque(true);
-
-        BuscarBtn.setBackground(new java.awt.Color(102, 0, 0));
-        BuscarBtn.setForeground(new java.awt.Color(255, 255, 255));
-        BuscarBtn.setText("Search Image");
-        BuscarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarBtnActionPerformed(evt);
-            }
-        });
-
         RegistrarBtn.setBackground(new java.awt.Color(102, 0, 0));
         RegistrarBtn.setForeground(new java.awt.Color(255, 255, 255));
-        RegistrarBtn.setText("Sign On");
+        RegistrarBtn.setText("Team Registration");
         RegistrarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegistrarBtnActionPerformed(evt);
@@ -117,17 +79,8 @@ public class Vista extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(RegistrarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(DescripcionTxtField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                        .addComponent(EquipoNombreTxtField, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(BuscarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(45, 45, 45)
-                                .addComponent(imagenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE))
+                            .addComponent(RegistrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 452, Short.MAX_VALUE))
                     .addComponent(jSeparator1))
                 .addContainerGap())
         );
@@ -142,54 +95,18 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(26, 26, 26)
-                        .addComponent(EquipoNombreTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DescripcionTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BuscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(RegistrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(imagenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RegistrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        JFileChooser chooser=new JFileChooser();
-        chooser.showOpenDialog(null);
-        try{
-        File f=chooser.getSelectedFile();
-        String filename=f.getAbsolutePath();
-        ImageIcon icon=new ImageIcon(filename);
-        imagenLabel.setIcon(icon);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this.rootPane, "No se seleccionó ninguna imagen");
-        }
-// TODO add your handling code here:
-    }//GEN-LAST:event_BuscarBtnActionPerformed
-
     private void RegistrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarBtnActionPerformed
+        new Inscripcion().setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_RegistrarBtnActionPerformed
-
-    private void EquipoNombreTxtFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EquipoNombreTxtFieldMouseClicked
-        EquipoNombreTxtField.setText("");
-        EquipoNombreTxtField.setForeground(Color.BLACK);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EquipoNombreTxtFieldMouseClicked
-
-    private void DescripcionTxtFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionTxtFieldMouseClicked
-        DescripcionTxtField.setText("");
-        DescripcionTxtField.setForeground(Color.BLACK);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DescripcionTxtFieldMouseClicked
 
     /**
      * @param args the command line arguments
@@ -227,14 +144,9 @@ public class Vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BuscarBtn;
-    private javax.swing.JTextField DescripcionTxtField;
-    private javax.swing.JTextField EquipoNombreTxtField;
     private javax.swing.JButton RegistrarBtn;
-    private javax.swing.JLabel imagenLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

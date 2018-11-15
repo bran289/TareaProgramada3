@@ -70,6 +70,7 @@ public class Noticia extends javax.swing.JFrame {
         jRadioButton6 = new javax.swing.JRadioButton();
         jSeparator6 = new javax.swing.JSeparator();
         jRadioButton7 = new javax.swing.JRadioButton();
+        PaisTxtField5 = new javax.swing.JTextField();
 
         PaisTxtField2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         PaisTxtField2.setForeground(new java.awt.Color(153, 153, 153));
@@ -304,6 +305,15 @@ public class Noticia extends javax.swing.JFrame {
             }
         });
 
+        PaisTxtField5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        PaisTxtField5.setForeground(new java.awt.Color(153, 153, 153));
+        PaisTxtField5.setText("Hackathon ID");
+        PaisTxtField5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PaisTxtField5MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -327,7 +337,7 @@ public class Noticia extends javax.swing.JFrame {
                                 .addGap(62, 62, 62)
                                 .addComponent(jSeparator3))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jSeparator6)
                                     .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE))
@@ -351,8 +361,10 @@ public class Noticia extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PaisTxtField3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PaisTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(PaisTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PaisTxtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(69, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButton5)
@@ -392,7 +404,8 @@ public class Noticia extends javax.swing.JFrame {
                             .addComponent(PaisTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PaisTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PaisTxtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PaisTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(PaisTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PaisTxtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
@@ -574,6 +587,10 @@ public class Noticia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
+    private void PaisTxtField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaisTxtField5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PaisTxtField5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -621,6 +638,7 @@ public class Noticia extends javax.swing.JFrame {
     private javax.swing.JTextField PaisTxtField2;
     private javax.swing.JTextField PaisTxtField3;
     private javax.swing.JTextField PaisTxtField4;
+    private javax.swing.JTextField PaisTxtField5;
     private javax.swing.JTextField ValorMTxtField;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel imagenLabel;

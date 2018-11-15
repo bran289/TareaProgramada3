@@ -5,10 +5,29 @@
  */
 package CapaPresentacion.CRUD;
 
+import CRUD.Creacion;
+import CRUD.Eliminacion;
+import CRUD.Modificar;
+import CRUD.Visualizacion;
+import DataBase.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +39,9 @@ public class Categoria extends javax.swing.JFrame {
     /**
      * Creates new form Categoria
      */
+    String id,name,description;
+    String filename = null;
+    byte[] person_image=null;
     public Categoria() {
         this.rootPane.getContentPane().setBackground(Color.getHSBColor(122, 110, 238));       
         initComponents();
@@ -63,6 +85,7 @@ public class Categoria extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jRadioButton4 = new javax.swing.JRadioButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Hackathon CR");
@@ -107,7 +130,7 @@ public class Categoria extends javax.swing.JFrame {
 
         CodigoMTxtField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         CodigoMTxtField.setForeground(new java.awt.Color(153, 153, 153));
-        CodigoMTxtField.setText("Code");
+        CodigoMTxtField.setText("ID");
         CodigoMTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CodigoMTxtFieldMouseClicked(evt);
@@ -126,10 +149,14 @@ public class Categoria extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(102, 0, 0));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Confirm");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         imagenLabel.setBackground(new java.awt.Color(133, 35, 35));
         imagenLabel.setForeground(new java.awt.Color(255, 255, 255));
-        imagenLabel.setText("                                  NO IMAGE");
         imagenLabel.setOpaque(true);
 
         HackatonList1.setBackground(new java.awt.Color(133, 35, 35));
@@ -155,10 +182,20 @@ public class Categoria extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(102, 0, 0));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Show");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(102, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Sign on");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -176,6 +213,11 @@ public class Categoria extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(102, 0, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Confirm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -221,6 +263,15 @@ public class Categoria extends javax.swing.JFrame {
         jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(102, 0, 0));
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Show Image");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
             }
         });
 
@@ -289,7 +340,9 @@ public class Categoria extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -352,7 +405,9 @@ public class Categoria extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton4))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton4)
+                        .addComponent(jButton5)))
                 .addContainerGap())
         );
 
@@ -390,15 +445,24 @@ public class Categoria extends javax.swing.JFrame {
     }//GEN-LAST:event_ValorMTxtFieldMouseClicked
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        JFileChooser chooser=new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        filename = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+        imagenLabel.setIcon(imageIcon);
         try{
-            File f=chooser.getSelectedFile();
-            String filename=f.getAbsolutePath();
-            ImageIcon icon=new ImageIcon(filename);
-            imagenLabel.setIcon(icon);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this.rootPane, "No se seleccionó ninguna imagen");
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum;(readNum=fis.read(buf))!=-1;){
+                bos.write(buf,0,readNum);
+            }
+            person_image=bos.toByteArray();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
         }
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
@@ -432,6 +496,109 @@ public class Categoria extends javax.swing.JFrame {
         ValorMTxtField.setEnabled(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
+            Connection con = DriverManager.getConnection(url);
+            String query = "insert into Category(id, name, descriptionC, picture) values(?,?,?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, NombreTxtField.getText());
+            pst.setString(3, PaisTxtField.getText());
+            pst.setBytes(4, person_image);
+            pst.executeUpdate();            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+//        pst.setString(1, jTextField1.getText());
+//        pst.setBytes(2, person_image);
+//        pst.executeUpdate();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            Eliminacion delete = new Eliminacion();
+            delete.Categoria(CodigoETxtField.getText());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String column = "";
+        if(jRadioButton2.isSelected()){
+            column = "id";
+            try{
+                Modificar modify = new Modificar();
+                modify.Categoria(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton1.isSelected()){
+            column = "name";
+            try{
+                Modificar modify = new Modificar();
+                modify.Categoria(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        else if(jRadioButton3.isSelected()){
+            column = "descriptionC";
+            try{
+                Modificar modify = new Modificar();
+                modify.Categoria(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton4.isSelected()){
+            column = "picture";
+            try{
+                Modificar modify = new Modificar();
+                modify.CategoriaImagen(column, person_image, CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try{
+            DefaultListModel model = new DefaultListModel();
+            HackatonList1.setModel(model);
+            Visualizacion view = new Visualizacion();
+            ArrayList<String>listaCategoria=view.Categoria();
+            for (int i = 0; i < listaCategoria.size(); i++) {
+                model.add(i, listaCategoria.get(i));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try{
+            Conexion con = new Conexion();
+            Connection cone = con.Conexion();
+            Statement stmt = cone.createStatement();
+            String idCat = HackatonList1.getSelectedValue();
+            String query = "select picture from Category where(CONCAT(id,' ',name,' ',descriptionC)='"+idCat+"');";
+            ResultSet result =stmt.executeQuery(query);
+            while(result.next()==true){
+                byte[] img = (result.getBytes("picture"));
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+                imagenLabel.setIcon(imageIcon);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -483,6 +650,7 @@ public class Categoria extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
