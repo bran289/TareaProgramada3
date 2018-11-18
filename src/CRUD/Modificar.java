@@ -32,10 +32,28 @@ public class Modificar {
         pst.executeUpdate();
         return pst;
     }
+//    public PreparedStatement idEncargado(String modificacion, String id) throws ClassNotFoundException, SQLException{
+//        Conexion conexion = new Conexion();
+//        Connection con = conexion.Conexion();
+//        String query = "UPDATE Attendant SET idCard = '"+modificacion+"' Where idCard = "+id+";"
+//                + "UPDATE telAttendant SET idCard = '"+modificacion+"' Where idCard = "+id+";";
+//        PreparedStatement pst = con.prepareStatement(query);
+//        pst.executeUpdate();
+//        return pst;
+//    }
     public PreparedStatement Encargado(String columna,String modificacion,String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();         
+        String query = "UPDATE Attendant SET "+columna+" = '"+modificacion+"' WHERE idCard = "+id+";";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.executeUpdate();
+        return pst;
+                
+    }
+    public PreparedStatement EncargadoTel(String columna,String modificacion,String id) throws ClassNotFoundException, SQLException{
+        Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
-        String query = "UPDATE Attendant SET "+columna+" = '"+modificacion+"' WHERE id = "+id+";";
+        String query = "UPDATE telAttendant SET "+columna+" = '"+modificacion+"' WHERE idCard = "+id+";";
         PreparedStatement pst = con.prepareStatement(query);
         pst.executeUpdate();
         return pst;
@@ -43,7 +61,7 @@ public class Modificar {
     public PreparedStatement EncargadoImagen(String columna,byte[] modificacion,String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
-        String query = "UPDATE Attendant SET "+columna+" = '"+modificacion+"' WHERE id = "+id+";";
+        String query = "UPDATE Attendant SET "+columna+" = '"+modificacion+"' WHERE idCard = "+id+";";
         PreparedStatement pst = con.prepareStatement(query);
         pst.executeUpdate();
         return pst;

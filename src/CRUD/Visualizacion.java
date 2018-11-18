@@ -37,7 +37,7 @@ public class Visualizacion {
         ArrayList<String> listaEncargados = new ArrayList<>();
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
-        String query ="select Attendant.*, telephone from Attendant join telAttendant on telAttendant.idCard = Attendant.idCard";
+        String query ="select Attendant.idCard,nameA,surname1,surname2,profession,email, telephone from Attendant join telAttendant on telAttendant.idCard = Attendant.idCard";
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(query);
         while(rs.next()){

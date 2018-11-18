@@ -27,7 +27,7 @@ public class Eliminacion {
     public PreparedStatement Encargado(String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
-        String query = "delete Attendant where(id="+id+")";
+        String query = "delete Attendant where(idCard="+id+")";
         PreparedStatement pst = con.prepareStatement(query);
         pst.executeUpdate();
         return pst;

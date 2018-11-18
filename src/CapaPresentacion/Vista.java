@@ -5,7 +5,7 @@
  */
 package CapaPresentacion;
 
-import CapaPresentacion.CRUD.Inscripcion;
+import CapaPresentacion.CRUD.Equipo;
 import java.awt.Color;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -104,7 +104,7 @@ public class Vista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RegistrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarBtnActionPerformed
-        new Inscripcion().setVisible(true);
+        new Equipo().setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_RegistrarBtnActionPerformed
 
