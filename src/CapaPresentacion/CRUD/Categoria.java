@@ -499,9 +499,8 @@ public class Categoria extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
-            Connection con = DriverManager.getConnection(url);
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
             String query = "insert into Category(id, name, descriptionC, picture) values(?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CodigoTxtField.getText());

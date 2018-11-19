@@ -669,9 +669,8 @@ public class Encargado extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
-            Connection con = DriverManager.getConnection(url);
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
             String query = "insert into Attendant(idCard, nameA,surname1,surname2,profession, picture,email) values(?,?,?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CedulaTxtField.getText());
@@ -814,9 +813,8 @@ public class Encargado extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
-            Connection con = DriverManager.getConnection(url);
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
             String query2 = "Insert into telAttendant(idCard,telephone) values(?,?)";
             PreparedStatement pst2 = con.prepareStatement(query2);
             pst2.setString(1, CedulaTxtField.getText());

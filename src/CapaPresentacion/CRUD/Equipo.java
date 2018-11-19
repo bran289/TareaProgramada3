@@ -6,6 +6,7 @@
 package CapaPresentacion.CRUD;
 
 import CRUD.Visualizacion;
+import DataBase.Conexion;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.ByteArrayOutputStream;
@@ -212,9 +213,8 @@ public class Equipo extends javax.swing.JFrame {
 
     private void RegistrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarBtnActionPerformed
         try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
-            Connection con = DriverManager.getConnection(url);
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
             String query = "insert into Team(nameT, projectDescription, picture, idHackathon) values(?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CodigoTxtField.getText());

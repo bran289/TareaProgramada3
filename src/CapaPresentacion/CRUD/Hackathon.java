@@ -1170,9 +1170,8 @@ public class Hackathon extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
-            Connection con = DriverManager.getConnection(url);
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
             String query = "insert into Hackathon(id, name, codOrg, topic, descriptionH, idCat, startDate, finishDate, "
                     + "hours, logo, poster, website, email, prize1, prize2, prize3, sponsorCode) values(?,?)";
             PreparedStatement pst = con.prepareStatement(query);
@@ -1202,9 +1201,8 @@ public class Hackathon extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try{
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
-            Connection con = DriverManager.getConnection(url);
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
             String query = "insert into AttendantHackathon(idHackathon, attendantID) values(?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CodigoTxtField.getText());
@@ -1218,9 +1216,8 @@ public class Hackathon extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try{
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
-            Connection con = DriverManager.getConnection(url);
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
             String query = "insert into SponsorHackathon(idHack, codeSponsor) values(?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CodigoTxtField.getText());
@@ -1234,9 +1231,8 @@ public class Hackathon extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
-            Connection con = DriverManager.getConnection(url);
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
             String query = "insert into requirement(idHackathon, nameR) values(?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CodigoTxtField.getText());
