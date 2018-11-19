@@ -5,8 +5,14 @@
  */
 package CapaPresentacion.CRUD;
 
+import DataBase.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,6 +26,9 @@ public class Organizador extends javax.swing.JFrame {
     /**
      * Creates new form Organizador
      */
+    String code,name,country,city,address,telephone,email;
+    String filename = null;
+    byte[] person_image=null;
     public Organizador() {
         this.rootPane.getContentPane().setBackground(Color.getHSBColor(122, 110, 238));
         initComponents();
@@ -183,6 +192,11 @@ public class Organizador extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(102, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Sign On");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -480,15 +494,24 @@ public class Organizador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        JFileChooser chooser=new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        filename = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+        imagenLabel.setIcon(imageIcon);
         try{
-        File f=chooser.getSelectedFile();
-        String filename=f.getAbsolutePath();
-        ImageIcon icon=new ImageIcon(filename);
-        imagenLabel.setIcon(icon);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this.rootPane, "No se seleccionó ninguna imagen");
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum;(readNum=fis.read(buf))!=-1;){
+                bos.write(buf,0,readNum);
+            }
+            person_image=bos.toByteArray();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
         }
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
@@ -599,6 +622,10 @@ public class Organizador extends javax.swing.JFrame {
         ValorMTxtField.setEnabled(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

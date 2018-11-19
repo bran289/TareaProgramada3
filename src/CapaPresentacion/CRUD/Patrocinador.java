@@ -6,7 +6,10 @@
 package CapaPresentacion.CRUD;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,6 +23,9 @@ public class Patrocinador extends javax.swing.JFrame {
     /**
      * Creates new form Patrocinador
      */
+    String code,name, website;
+    String filename = null;
+    byte[] person_image=null;
     public Patrocinador() {
         this.rootPane.getContentPane().setBackground(Color.getHSBColor(122, 110, 238));
         initComponents();
@@ -380,15 +386,24 @@ public class Patrocinador extends javax.swing.JFrame {
     }//GEN-LAST:event_ValorMTxtFieldMouseClicked
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        JFileChooser chooser=new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        filename = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+        imagenLabel.setIcon(imageIcon);
         try{
-            File f=chooser.getSelectedFile();
-            String filename=f.getAbsolutePath();
-            ImageIcon icon=new ImageIcon(filename);
-            imagenLabel.setIcon(icon);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this.rootPane, "No se seleccionó ninguna imagen");
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum;(readNum=fis.read(buf))!=-1;){
+                bos.write(buf,0,readNum);
+            }
+            person_image=bos.toByteArray();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
         }
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
