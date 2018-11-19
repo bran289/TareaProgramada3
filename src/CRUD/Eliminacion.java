@@ -32,6 +32,14 @@ public class Eliminacion {
         pst.executeUpdate();
         return pst;
     }
+    public PreparedStatement telEncargado(String id) throws ClassNotFoundException, SQLException{
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query = "delete telAttendant where(idCard="+id+")";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.executeUpdate();
+        return pst;
+    }
     public PreparedStatement Hackathon(String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
@@ -40,6 +48,30 @@ public class Eliminacion {
         pst.executeUpdate();
         return pst;
     }
+    public PreparedStatement AttendantHackathon(String id) throws ClassNotFoundException, SQLException{
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query = "delete AttendantHackathon where(idHackathon="+id+")";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.executeUpdate();
+        return pst;
+    }
+    public PreparedStatement Requirement(String id) throws ClassNotFoundException, SQLException{
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query = "delete requirement where(idHackathon="+id+")";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.executeUpdate();
+        return pst;
+    }
+    public PreparedStatement SponsorHackathon(String id) throws ClassNotFoundException, SQLException{
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query = "delete SponsorHackathon where(idHack="+id+")";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.executeUpdate();
+        return pst;
+    }    
     public PreparedStatement Noticia(String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();

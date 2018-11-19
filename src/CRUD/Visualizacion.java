@@ -49,7 +49,9 @@ public class Visualizacion {
         ArrayList<String> listaHackathons = new ArrayList<>();
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
-        String query ="select Hackathon.id,Hackathon.name as Hack,Organizer.nameO,Attendant.nameA,topic,descriptionH,requirement.nameR,Category.name,startDate,finishDate,hours,Hackathon.website,Hackathon.email,prize1,prize2,prize3,Sponsor.name as sponsor from Hackathon\n" +
+        String query ="select Hackathon.id,Hackathon.name as Hack,Organizer.nameO,Attendant.nameA,topic,"
+                + "descriptionH,requirement.nameR,Category.name,startDate,finishDate,hours,Hackathon.website,"
+                + "Hackathon.email,prize1,prize2,prize3,Sponsor.name as sponsor from Hackathon\n" +
                         "join AttendantHackathon on AttendantHackathon.idHackathon = Hackathon.id\n" +
                         "join requirement on requirement.idHackathon = Hackathon.id\n" +
                         "join Organizer on Organizer.code = Hackathon.codOrg\n" +
@@ -62,6 +64,66 @@ public class Visualizacion {
             listaHackathons.add(0, (rs.getString("id")+" "+rs.getString("Hack")+" "+rs.getString("nameO")+" "+rs.getString("nameA")+" "+rs.getString("topic")+" "+rs.getString("descriptionH")+" "+rs.getString("nameR")+" "+rs.getString("name")+" "+rs.getString("startDate")+" "+rs.getString("finishDate")+" "+rs.getString("hours")+" "+rs.getString("website")+" "+rs.getString("email")+" "+rs.getString("prize1")+" "+rs.getString("prize2")+" "+rs.getString("prize3")+" "+rs.getString("sponsor")));
         }  
         return listaHackathons;
+    }
+    public ArrayList<String> HackathonID() throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaNoticias = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select id from Hackathon;";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaNoticias.add(0, (rs.getString("id")));
+        }  
+        return listaNoticias;
+    }
+    public ArrayList<String> OrganizerCode() throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaNoticias = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select code from Organizer;";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaNoticias.add(0, (rs.getString("code")));
+        }  
+        return listaNoticias;
+    }
+    public ArrayList<String> AttendantID() throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaNoticias = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select idCard from Attendant;";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaNoticias.add(0, (rs.getString("idCard")));
+        }  
+        return listaNoticias;
+    }
+    public ArrayList<String> CategoryID() throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaNoticias = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select id from Category;";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaNoticias.add(0, (rs.getString("id")));
+        }  
+        return listaNoticias;
+    }
+    public ArrayList<String> SponsorCode() throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaNoticias = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select code from Sponsor;";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaNoticias.add(0, (rs.getString("code")));
+        }  
+        return listaNoticias;
     }
     public ArrayList<String> Noticia() throws ClassNotFoundException, SQLException{
         ArrayList<String> listaNoticias = new ArrayList<>();

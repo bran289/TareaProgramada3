@@ -5,8 +5,22 @@
  */
 package CapaPresentacion.CRUD;
 
+import CRUD.Eliminacion;
+import CRUD.Modificar;
+import CRUD.Visualizacion;
+import DataBase.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,6 +34,12 @@ public class Hackathon extends javax.swing.JFrame {
     /**
      * Creates new form Hackathon
      */
+    String id, name, organizer, attendant, topic, projectD, requirement, 
+            category, hours, start, finish, website, email, first, second, third, sponsor;
+    String filename = null;
+    String filename2 = null;
+    byte[] person_image=null;
+    byte[] person_image2=null;
     public Hackathon() {
         this.rootPane.getContentPane().setBackground(Color.getHSBColor(122, 110, 238));
         initComponents();
@@ -37,7 +57,6 @@ public class Hackathon extends javax.swing.JFrame {
         NombreTxtField15 = new javax.swing.JTextField();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
         imagenLabel = new javax.swing.JLabel();
         jRadioButton7 = new javax.swing.JRadioButton();
         BuscarBtn = new javax.swing.JButton();
@@ -66,12 +85,8 @@ public class Hackathon extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         imagenLabel1 = new javax.swing.JLabel();
         BuscarBtn1 = new javax.swing.JButton();
-        NombreTxtField1 = new javax.swing.JTextField();
-        NombreTxtField2 = new javax.swing.JTextField();
         NombreTxtField3 = new javax.swing.JTextField();
         NombreTxtField4 = new javax.swing.JTextField();
-        NombreTxtField5 = new javax.swing.JTextField();
-        NombreTxtField6 = new javax.swing.JTextField();
         NombreTxtField7 = new javax.swing.JTextField();
         NombreTxtField8 = new javax.swing.JTextField();
         NombreTxtField9 = new javax.swing.JTextField();
@@ -80,11 +95,9 @@ public class Hackathon extends javax.swing.JFrame {
         NombreTxtField12 = new javax.swing.JTextField();
         NombreTxtField13 = new javax.swing.JTextField();
         NombreTxtField14 = new javax.swing.JTextField();
-        NombreTxtField16 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jRadioButton16 = new javax.swing.JRadioButton();
         jRadioButton10 = new javax.swing.JRadioButton();
         jRadioButton11 = new javax.swing.JRadioButton();
         jRadioButton12 = new javax.swing.JRadioButton();
@@ -94,10 +107,15 @@ public class Hackathon extends javax.swing.JFrame {
         jRadioButton17 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton9 = new javax.swing.JRadioButton();
         jRadioButton19 = new javax.swing.JRadioButton();
         jRadioButton8 = new javax.swing.JRadioButton();
         jRadioButton18 = new javax.swing.JRadioButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        NombreTxtField5 = new javax.swing.JTextField();
+        jButton8 = new javax.swing.JButton();
 
         NombreTxtField15.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         NombreTxtField15.setForeground(new java.awt.Color(153, 153, 153));
@@ -119,16 +137,6 @@ public class Hackathon extends javax.swing.JFrame {
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton3ActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jRadioButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton5.setText("Attendant");
-        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton5ActionPerformed(evt);
             }
         });
 
@@ -179,10 +187,20 @@ public class Hackathon extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(102, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Sign On");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(102, 0, 0));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Confirm");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -205,6 +223,11 @@ public class Hackathon extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(102, 0, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Confirm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Algerian", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,6 +257,11 @@ public class Hackathon extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(102, 0, 0));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Show");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         NombreTxtField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         NombreTxtField.setForeground(new java.awt.Color(153, 153, 153));
@@ -278,24 +306,6 @@ public class Hackathon extends javax.swing.JFrame {
             }
         });
 
-        NombreTxtField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        NombreTxtField1.setForeground(new java.awt.Color(153, 153, 153));
-        NombreTxtField1.setText("Organizer");
-        NombreTxtField1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NombreTxtField1MouseClicked(evt);
-            }
-        });
-
-        NombreTxtField2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        NombreTxtField2.setForeground(new java.awt.Color(153, 153, 153));
-        NombreTxtField2.setText("Attendant");
-        NombreTxtField2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NombreTxtField2MouseClicked(evt);
-            }
-        });
-
         NombreTxtField3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         NombreTxtField3.setForeground(new java.awt.Color(153, 153, 153));
         NombreTxtField3.setText("Topic");
@@ -311,24 +321,6 @@ public class Hackathon extends javax.swing.JFrame {
         NombreTxtField4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 NombreTxtField4MouseClicked(evt);
-            }
-        });
-
-        NombreTxtField5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        NombreTxtField5.setForeground(new java.awt.Color(153, 153, 153));
-        NombreTxtField5.setText("Requirement");
-        NombreTxtField5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NombreTxtField5MouseClicked(evt);
-            }
-        });
-
-        NombreTxtField6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        NombreTxtField6.setForeground(new java.awt.Color(153, 153, 153));
-        NombreTxtField6.setText("Category");
-        NombreTxtField6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NombreTxtField6MouseClicked(evt);
             }
         });
 
@@ -404,34 +396,30 @@ public class Hackathon extends javax.swing.JFrame {
             }
         });
 
-        NombreTxtField16.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        NombreTxtField16.setForeground(new java.awt.Color(153, 153, 153));
-        NombreTxtField16.setText("Sponsor");
-        NombreTxtField16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NombreTxtField16MouseClicked(evt);
-            }
-        });
-
         jButton5.setBackground(new java.awt.Color(102, 0, 0));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Sign on (More Attendants)");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(102, 0, 0));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Sign on (More requirements)");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(102, 0, 0));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Sign On (More Sponsors)");
-
-        buttonGroup1.add(jRadioButton16);
-        jRadioButton16.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jRadioButton16.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton16.setText("Requirement");
-        jRadioButton16.addActionListener(new java.awt.event.ActionListener() {
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton16ActionPerformed(evt);
+                jButton7ActionPerformed(evt);
             }
         });
 
@@ -525,16 +513,6 @@ public class Hackathon extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(jRadioButton9);
-        jRadioButton9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jRadioButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton9.setText("Sponsor");
-        jRadioButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton9ActionPerformed(evt);
-            }
-        });
-
         buttonGroup1.add(jRadioButton19);
         jRadioButton19.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton19.setForeground(new java.awt.Color(255, 255, 255));
@@ -565,6 +543,80 @@ public class Hackathon extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(153, 153, 153));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Organizer" }));
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jComboBox2.setForeground(new java.awt.Color(153, 153, 153));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Attendant" }));
+        jComboBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox2MouseClicked(evt);
+            }
+        });
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+
+        jComboBox4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jComboBox4.setForeground(new java.awt.Color(153, 153, 153));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Category" }));
+        jComboBox4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox4MouseClicked(evt);
+            }
+        });
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
+
+        jComboBox5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jComboBox5.setForeground(new java.awt.Color(153, 153, 153));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sponsor" }));
+        jComboBox5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox5MouseClicked(evt);
+            }
+        });
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
+
+        NombreTxtField5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        NombreTxtField5.setForeground(new java.awt.Color(153, 153, 153));
+        NombreTxtField5.setText("Requirement");
+        NombreTxtField5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                NombreTxtField5MouseClicked(evt);
+            }
+        });
+
+        jButton8.setBackground(new java.awt.Color(102, 0, 0));
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Show Images");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -576,6 +628,9 @@ public class Hackathon extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator5)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)
@@ -583,6 +638,14 @@ public class Hackathon extends javax.swing.JFrame {
                                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton7))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(NombreTxtField7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -598,30 +661,23 @@ public class Hackathon extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(NombreTxtField14, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(NombreTxtField16, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton7))
+                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jRadioButton1)
-                                                    .addComponent(jRadioButton5)
-                                                    .addComponent(jRadioButton3)
-                                                    .addComponent(jRadioButton2))
-                                                .addGap(67, 67, 67)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jRadioButton12)
-                                                    .addComponent(jRadioButton16)
-                                                    .addComponent(jRadioButton10)
-                                                    .addComponent(jRadioButton11))
-                                                .addGap(56, 56, 56)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(jRadioButton1)
+                                                            .addComponent(jRadioButton3)
+                                                            .addComponent(jRadioButton2))
+                                                        .addGap(67, 67, 67)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(jRadioButton12)
+                                                            .addComponent(jRadioButton10)
+                                                            .addComponent(jRadioButton11)))
+                                                    .addComponent(jRadioButton7))
+                                                .addGap(64, 64, 64)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jRadioButton17)
                                                     .addComponent(jRadioButton14)
@@ -633,24 +689,21 @@ public class Hackathon extends javax.swing.JFrame {
                                                     .addComponent(ValorMTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRadioButton9)
+                                            .addComponent(jRadioButton6)
                                             .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(2, 2, 2)
+                                                        .addComponent(jRadioButton4))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jRadioButton19)))
                                                 .addGap(2, 2, 2)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jRadioButton19)
-                                                    .addComponent(jRadioButton6)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jRadioButton4)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jRadioButton8)
-                                                            .addComponent(jRadioButton18))))))))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                    .addComponent(jRadioButton8)
+                                                    .addComponent(jRadioButton18))))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(53, 53, 53))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -673,30 +726,30 @@ public class Hackathon extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(NombreTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(NombreTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(NombreTxtField2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(14, 14, 14)
                                     .addComponent(NombreTxtField3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(NombreTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(NombreTxtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(NombreTxtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGap(8, 8, 8)
+                                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(14, 14, 14)
                                     .addComponent(NombreTxtField9, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(108, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton7)
-                            .addComponent(jLabel5))
+                        .addComponent(jLabel5)
                         .addGap(0, 1257, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(307, 307, 307))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(183, 183, 183))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -709,13 +762,13 @@ public class Hackathon extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CodigoTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreTxtField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreTxtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreTxtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreTxtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreTxtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NombreTxtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NombreTxtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NombreTxtField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -725,7 +778,7 @@ public class Hackathon extends javax.swing.JFrame {
                     .addComponent(NombreTxtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreTxtField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreTxtField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreTxtField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -753,8 +806,8 @@ public class Hackathon extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jRadioButton9)
-                                                .addComponent(jRadioButton8))
+                                                .addComponent(jRadioButton8)
+                                                .addComponent(jRadioButton4))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                     .addComponent(jRadioButton2)
@@ -763,25 +816,21 @@ public class Hackathon extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                     .addComponent(jRadioButton1)
-                                                    .addComponent(jRadioButton16)
                                                     .addComponent(jRadioButton17)
-                                                    .addComponent(jRadioButton4)
-                                                    .addComponent(jRadioButton18))
+                                                    .addComponent(jRadioButton18)
+                                                    .addComponent(jRadioButton10)
+                                                    .addComponent(jRadioButton19))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                     .addComponent(jRadioButton3)
-                                                    .addComponent(jRadioButton10)
                                                     .addComponent(jRadioButton14)
-                                                    .addComponent(jRadioButton19))
+                                                    .addComponent(jRadioButton11)
+                                                    .addComponent(jRadioButton6))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(jRadioButton11)
                                                     .addComponent(jRadioButton15)
-                                                    .addComponent(jRadioButton6)
-                                                    .addComponent(jRadioButton5))))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                                        .addComponent(jRadioButton7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jRadioButton7))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(CodigoMTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -804,11 +853,12 @@ public class Hackathon extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BuscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(imagenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(imagenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton4)
+                        .addComponent(jButton8))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -817,15 +867,24 @@ public class Hackathon extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        JFileChooser chooser=new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        filename = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+        imagenLabel.setIcon(imageIcon);
         try{
-            File f=chooser.getSelectedFile();
-            String filename=f.getAbsolutePath();
-            ImageIcon icon=new ImageIcon(filename);
-            imagenLabel.setIcon(icon);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this.rootPane, "No se seleccionó ninguna imagen");
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum;(readNum=fis.read(buf))!=-1;){
+                bos.write(buf,0,readNum);
+            }
+            person_image=bos.toByteArray();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
         }
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
@@ -860,54 +919,32 @@ public class Hackathon extends javax.swing.JFrame {
     }//GEN-LAST:event_NombreTxtFieldMouseClicked
 
     private void BuscarBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtn1ActionPerformed
-        JFileChooser chooser=new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        filename2 = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename2).getImage().getScaledInstance(imagenLabel1.getWidth(),imagenLabel1.getHeight(),Image.SCALE_SMOOTH));
+        imagenLabel1.setIcon(imageIcon);
         try{
-            File f=chooser.getSelectedFile();
-            String filename=f.getAbsolutePath();
-            ImageIcon icon=new ImageIcon(filename);
-            imagenLabel.setIcon(icon);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this.rootPane, "No se seleccionó ninguna imagen");
+            File image = new File(filename2);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum;(readNum=fis.read(buf))!=-1;){
+                bos.write(buf,0,readNum);
+            }
+            person_image2=bos.toByteArray();
         }
-        // TODO add your handling code here:
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
     }//GEN-LAST:event_BuscarBtn1ActionPerformed
-
-    private void NombreTxtField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField1MouseClicked
-        NombreTxtField1.setText("");
-        NombreTxtField1.setForeground(Color.BLACK);
-// TODO add your handling code here:
-    }//GEN-LAST:event_NombreTxtField1MouseClicked
-
-    private void NombreTxtField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField2MouseClicked
-        NombreTxtField2.setText("");
-        NombreTxtField2.setForeground(Color.BLACK);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTxtField2MouseClicked
-
-    private void NombreTxtField3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField3MouseClicked
-        NombreTxtField3.setText("");
-        NombreTxtField3.setForeground(Color.BLACK);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTxtField3MouseClicked
 
     private void NombreTxtField4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField4MouseClicked
         NombreTxtField4.setText("");
         NombreTxtField4.setForeground(Color.BLACK);
         // TODO add your handling code here:
     }//GEN-LAST:event_NombreTxtField4MouseClicked
-
-    private void NombreTxtField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField5MouseClicked
-        NombreTxtField5.setText("");
-        NombreTxtField5.setForeground(Color.BLACK);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTxtField5MouseClicked
-
-    private void NombreTxtField6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField6MouseClicked
-        NombreTxtField6.setText("");
-        NombreTxtField6.setForeground(Color.BLACK);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTxtField6MouseClicked
 
     private void NombreTxtField7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField7MouseClicked
         NombreTxtField7.setText("");
@@ -963,12 +1000,6 @@ public class Hackathon extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NombreTxtField15MouseClicked
 
-    private void NombreTxtField16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField16MouseClicked
-        NombreTxtField16.setText("");
-        NombreTxtField16.setForeground(Color.BLACK);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTxtField16MouseClicked
-
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         ValorMTxtField.setEnabled(true);
         // TODO add your handling code here:
@@ -984,11 +1015,6 @@ public class Hackathon extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
-    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
-        ValorMTxtField.setEnabled(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton5ActionPerformed
-
     private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
         ValorMTxtField.setEnabled(true);
         // TODO add your handling code here:
@@ -998,11 +1024,6 @@ public class Hackathon extends javax.swing.JFrame {
         ValorMTxtField.setEnabled(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton12ActionPerformed
-
-    private void jRadioButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton16ActionPerformed
-        ValorMTxtField.setEnabled(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton16ActionPerformed
 
     private void jRadioButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton10ActionPerformed
         ValorMTxtField.setEnabled(true);
@@ -1034,11 +1055,6 @@ public class Hackathon extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton15ActionPerformed
 
-    private void jRadioButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton9ActionPerformed
-        ValorMTxtField.setEnabled(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton9ActionPerformed
-
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
         ValorMTxtField.setEnabled(true);
         // TODO add your handling code here:
@@ -1063,6 +1079,382 @@ public class Hackathon extends javax.swing.JFrame {
         ValorMTxtField.setEnabled(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton18ActionPerformed
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        jComboBox1.removeAllItems();
+        try{
+            Visualizacion hackathons = new Visualizacion();
+            ArrayList<String> listaIds = hackathons.OrganizerCode();
+            while(listaIds.isEmpty()==false){
+                jComboBox1.addItem(listaIds.get(0));
+                listaIds.remove(0);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
+        jComboBox2.removeAllItems();
+        try{
+            Visualizacion hackathons = new Visualizacion();
+            ArrayList<String> listaIds = hackathons.AttendantID();
+            while(listaIds.isEmpty()==false){
+                jComboBox2.addItem(listaIds.get(0));
+                listaIds.remove(0);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2MouseClicked
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void NombreTxtField3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField3MouseClicked
+        NombreTxtField3.setText("");
+        NombreTxtField3.setForeground(Color.BLACK);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreTxtField3MouseClicked
+
+    private void jComboBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox4MouseClicked
+        jComboBox4.removeAllItems();
+        try{
+            Visualizacion hackathons = new Visualizacion();
+            ArrayList<String> listaIds = hackathons.CategoryID();
+            while(listaIds.isEmpty()==false){
+                jComboBox4.addItem(listaIds.get(0));
+                listaIds.remove(0);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4MouseClicked
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void jComboBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox5MouseClicked
+        jComboBox5.removeAllItems();
+        try{
+            Visualizacion hackathons = new Visualizacion();
+            ArrayList<String> listaIds = hackathons.SponsorCode();
+            while(listaIds.isEmpty()==false){
+                jComboBox5.addItem(listaIds.get(0));
+                listaIds.remove(0);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox5MouseClicked
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
+    private void NombreTxtField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtField5MouseClicked
+        NombreTxtField5.setText("");
+        NombreTxtField5.setForeground(Color.BLACK);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreTxtField5MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
+            Connection con = DriverManager.getConnection(url);
+            String query = "insert into Hackathon(id, name, codOrg, topic, descriptionH, idCat, startDate, finishDate, "
+                    + "hours, logo, poster, website, email, prize1, prize2, prize3, sponsorCode) values(?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, NombreTxtField.getText());
+            pst.setString(3, jComboBox1.getSelectedItem().toString());
+            pst.setString(4, NombreTxtField3.getText());
+            pst.setString(5, NombreTxtField4.getText());
+            pst.setString(6, jComboBox4.getSelectedItem().toString());
+            pst.setString(7, NombreTxtField7.getText());
+            pst.setString(8, NombreTxtField8.getText());
+            pst.setString(9, NombreTxtField9.getText());
+            pst.setBytes(10, person_image);
+            pst.setBytes(11, person_image2);
+            pst.setString(12, NombreTxtField10.getText());
+            pst.setString(13, NombreTxtField11.getText());
+            pst.setString(14, NombreTxtField12.getText());
+            pst.setString(15, NombreTxtField13.getText());
+            pst.setString(16, NombreTxtField14.getText());
+            pst.setString(17, jComboBox5.getSelectedItem().toString());
+            pst.executeUpdate();                
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try{
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
+            Connection con = DriverManager.getConnection(url);
+            String query = "insert into AttendantHackathon(idHackathon, attendantID) values(?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, jComboBox2.getSelectedItem().toString());
+            pst.executeUpdate();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        try{
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
+            Connection con = DriverManager.getConnection(url);
+            String query = "insert into SponsorHackathon(idHack, codeSponsor) values(?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, jComboBox5.getSelectedItem().toString());
+            pst.executeUpdate();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
+            Connection con = DriverManager.getConnection(url);
+            String query = "insert into requirement(idHackathon, nameR) values(?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, NombreTxtField5.getText());
+            pst.executeUpdate();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            Eliminacion delete = new Eliminacion();
+            delete.Hackathon(CodigoETxtField.getText());
+            delete.AttendantHackathon(CodigoETxtField.getText());
+            delete.Requirement(CodigoETxtField.getText());
+            delete.SponsorHackathon(CodigoETxtField.getText());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String column = "";
+        if(jRadioButton2.isSelected()){
+            column = "id";
+            try{
+                Modificar modify = new Modificar();                
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton1.isSelected()){
+            column = "name";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton3.isSelected()){
+            column = "codOrg";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton7.isSelected()){
+            column = "topic";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton12.isSelected()){
+            column = "descriptionH";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            } 
+        }else if(jRadioButton10.isSelected()){
+            column = "idCat";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton11.isSelected()){
+            column = "hours";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton13.isSelected()){
+            column = "startDate";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton17.isSelected()){
+            column = "finishDate";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton14.isSelected()){
+            column = "website";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton15.isSelected()){
+            column = "email";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton4.isSelected()){
+            column = "prize1";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton19.isSelected()){
+            column = "prize2";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton6.isSelected()){
+            column = "prize3";
+            try{
+                Modificar modify = new Modificar();
+                modify.Hackathon(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }        
+        }else if(jRadioButton8.isSelected()){
+            column = "logo";
+            try{
+                Modificar modify = new Modificar();
+                modify.EncargadoImagen(column, person_image, CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton18.isSelected()){
+            column = "poster";
+            try{
+                Modificar modify = new Modificar();
+                modify.EncargadoImagen(column, person_image2, CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try{
+            DefaultListModel model = new DefaultListModel();
+            HackatonList1.setModel(model);
+            Visualizacion view = new Visualizacion();
+            ArrayList<String>listaHackathon=view.Hackathon();
+            for (int i = 0; i < listaHackathon.size(); i++) {
+                model.add(i, listaHackathon.get(i));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try{
+            Conexion con = new Conexion();
+            Connection cone = con.Conexion();
+            Statement stmt = cone.createStatement();
+            String idCat = HackatonList1.getSelectedValue();
+            String query = "select Hackathon.logo from Hackathon\n" +
+            "join AttendantHackathon on AttendantHackathon.idHackathon = Hackathon.id\n" +
+            "join requirement on requirement.idHackathon = Hackathon.id\n" +
+            "join Organizer on Organizer.code = Hackathon.codOrg\n" +
+            "join Attendant on Attendant.idCard = AttendantHackathon.attendantID\n" +
+            "join Category on Category.id = Hackathon.idCat\n" +
+            "join Sponsor on Sponsor.code = Hackathon.sponsorCode\n" +
+            "where(CONCAT(Hackathon.id,' ',Hackathon.name,' ',Organizer.nameO,' ',Attendant.nameA,' ',topic,' ',\n" +
+            "descriptionH,' ',requirement.nameR,' ',Category.name,' ',startDate,' ',finishDate,' ',hours,' ',Hackathon.website,' ',\n" +
+            "Hackathon.email,' ',prize1,' ',prize2,' ',prize3,' ',Sponsor.name)='"+idCat+"')";
+            ResultSet result =stmt.executeQuery(query);
+            
+            String query2 = "select Hackathon.poster from Hackathon\n" +
+            "join AttendantHackathon on AttendantHackathon.idHackathon = Hackathon.id\n" +
+            "join requirement on requirement.idHackathon = Hackathon.id\n" +
+            "join Organizer on Organizer.code = Hackathon.codOrg\n" +
+            "join Attendant on Attendant.idCard = AttendantHackathon.attendantID\n" +
+            "join Category on Category.id = Hackathon.idCat\n" +
+            "join Sponsor on Sponsor.code = Hackathon.sponsorCode\n" +
+            "where(CONCAT(Hackathon.id,' ',Hackathon.name,' ',Organizer.nameO,' ',Attendant.nameA,' ',topic,' ',\n" +
+            "descriptionH,' ',requirement.nameR,' ',Category.name,' ',startDate,' ',finishDate,' ',hours,' ',Hackathon.website,' ',\n" +
+            "Hackathon.email,' ',prize1,' ',prize2,' ',prize3,' ',Sponsor.name)='"+idCat+"')";
+            ResultSet result2 = stmt.executeQuery(query2);
+            while(result.next()==true){
+                byte[] img = (result.getBytes("logo"));
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+                imagenLabel.setIcon(imageIcon);
+            }
+            
+            while(result2.next()==true){
+                byte[] img = (result2.getBytes("poster"));
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(imagenLabel1.getWidth(),imagenLabel1.getHeight(),Image.SCALE_SMOOTH));
+                imagenLabel1.setIcon(imageIcon);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1107,19 +1499,15 @@ public class Hackathon extends javax.swing.JFrame {
     private javax.swing.JTextField CodigoTxtField;
     private javax.swing.JList<String> HackatonList1;
     private javax.swing.JTextField NombreTxtField;
-    private javax.swing.JTextField NombreTxtField1;
     private javax.swing.JTextField NombreTxtField10;
     private javax.swing.JTextField NombreTxtField11;
     private javax.swing.JTextField NombreTxtField12;
     private javax.swing.JTextField NombreTxtField13;
     private javax.swing.JTextField NombreTxtField14;
     private javax.swing.JTextField NombreTxtField15;
-    private javax.swing.JTextField NombreTxtField16;
-    private javax.swing.JTextField NombreTxtField2;
     private javax.swing.JTextField NombreTxtField3;
     private javax.swing.JTextField NombreTxtField4;
     private javax.swing.JTextField NombreTxtField5;
-    private javax.swing.JTextField NombreTxtField6;
     private javax.swing.JTextField NombreTxtField7;
     private javax.swing.JTextField NombreTxtField8;
     private javax.swing.JTextField NombreTxtField9;
@@ -1134,6 +1522,11 @@ public class Hackathon extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1146,18 +1539,15 @@ public class Hackathon extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton13;
     private javax.swing.JRadioButton jRadioButton14;
     private javax.swing.JRadioButton jRadioButton15;
-    private javax.swing.JRadioButton jRadioButton16;
     private javax.swing.JRadioButton jRadioButton17;
     private javax.swing.JRadioButton jRadioButton18;
     private javax.swing.JRadioButton jRadioButton19;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JRadioButton jRadioButton8;
-    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

@@ -32,15 +32,6 @@ public class Modificar {
         pst.executeUpdate();
         return pst;
     }
-//    public PreparedStatement idEncargado(String modificacion, String id) throws ClassNotFoundException, SQLException{
-//        Conexion conexion = new Conexion();
-//        Connection con = conexion.Conexion();
-//        String query = "UPDATE Attendant SET idCard = '"+modificacion+"' Where idCard = "+id+";"
-//                + "UPDATE telAttendant SET idCard = '"+modificacion+"' Where idCard = "+id+";";
-//        PreparedStatement pst = con.prepareStatement(query);
-//        pst.executeUpdate();
-//        return pst;
-//    }
     public PreparedStatement Encargado(String columna,String modificacion,String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();         

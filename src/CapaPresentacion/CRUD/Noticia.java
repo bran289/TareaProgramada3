@@ -5,8 +5,22 @@
  */
 package CapaPresentacion.CRUD;
 
+import CRUD.Eliminacion;
+import CRUD.Modificar;
+import CRUD.Visualizacion;
+import DataBase.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,6 +34,9 @@ public class Noticia extends javax.swing.JFrame {
     /**
      * Creates new form Noticia
      */
+    String id, title, header, text, registerDate, author, hackathonId;
+    String filename = null;
+    byte[] person_image=null;
     public Noticia() {
         this.rootPane.getContentPane().setBackground(Color.getHSBColor(122, 110, 238));
         initComponents();
@@ -36,6 +53,7 @@ public class Noticia extends javax.swing.JFrame {
 
         PaisTxtField2 = new javax.swing.JTextField();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jButton5 = new javax.swing.JButton();
         CodigoTxtField = new javax.swing.JTextField();
         NombreTxtField = new javax.swing.JTextField();
         PaisTxtField = new javax.swing.JTextField();
@@ -70,7 +88,9 @@ public class Noticia extends javax.swing.JFrame {
         jRadioButton6 = new javax.swing.JRadioButton();
         jSeparator6 = new javax.swing.JSeparator();
         jRadioButton7 = new javax.swing.JRadioButton();
-        PaisTxtField5 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jRadioButton8 = new javax.swing.JRadioButton();
+        jButton6 = new javax.swing.JButton();
 
         PaisTxtField2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         PaisTxtField2.setForeground(new java.awt.Color(153, 153, 153));
@@ -78,6 +98,15 @@ public class Noticia extends javax.swing.JFrame {
         PaisTxtField2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 PaisTxtField2MouseClicked(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(102, 0, 0));
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Show Image");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
             }
         });
 
@@ -133,6 +162,11 @@ public class Noticia extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(102, 0, 0));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Confirm");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         imagenLabel.setBackground(new java.awt.Color(133, 35, 35));
         imagenLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -204,10 +238,20 @@ public class Noticia extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(102, 0, 0));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Show");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(102, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Sign On");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -305,12 +349,30 @@ public class Noticia extends javax.swing.JFrame {
             }
         });
 
-        PaisTxtField5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        PaisTxtField5.setForeground(new java.awt.Color(153, 153, 153));
-        PaisTxtField5.setText("Hackathon ID");
-        PaisTxtField5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jComboBox1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(153, 153, 153));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hackathon's IDs" }));
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PaisTxtField5MouseClicked(evt);
+                jComboBox1MouseClicked(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jRadioButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton8.setText("Hackathon ID");
+
+        jButton6.setBackground(new java.awt.Color(102, 0, 0));
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Show Image");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
             }
         });
 
@@ -341,10 +403,15 @@ public class Noticia extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jSeparator6)
                                     .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(imagenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BuscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(imagenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(BuscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(56, 56, 56)
+                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(58, 58, 58))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,20 +430,21 @@ public class Noticia extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PaisTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PaisTxtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(69, Short.MAX_VALUE))
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(64, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButton5)
-                            .addComponent(jRadioButton6)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(CodigoMTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ValorMTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jRadioButton4))
+                                    .addComponent(jRadioButton4)
+                                    .addComponent(jRadioButton6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRadioButton8)
                                     .addComponent(jRadioButton7)
                                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -405,7 +473,7 @@ public class Noticia extends javax.swing.JFrame {
                             .addComponent(PaisTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PaisTxtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PaisTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PaisTxtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
@@ -445,7 +513,9 @@ public class Noticia extends javax.swing.JFrame {
                             .addComponent(jRadioButton4)
                             .addComponent(jRadioButton7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton6)
+                            .addComponent(jRadioButton8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jRadioButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
@@ -462,7 +532,9 @@ public class Noticia extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton6))
                             .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -502,15 +574,24 @@ public class Noticia extends javax.swing.JFrame {
     }//GEN-LAST:event_ValorMTxtFieldMouseClicked
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        JFileChooser chooser=new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        filename = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+        imagenLabel.setIcon(imageIcon);
         try{
-            File f=chooser.getSelectedFile();
-            String filename=f.getAbsolutePath();
-            ImageIcon icon=new ImageIcon(filename);
-            imagenLabel.setIcon(icon);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this.rootPane, "No se seleccionó ninguna imagen");
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for(int readNum;(readNum=fis.read(buf))!=-1;){
+                bos.write(buf,0,readNum);
+            }
+            person_image=bos.toByteArray();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
         }
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
@@ -549,6 +630,12 @@ public class Noticia extends javax.swing.JFrame {
     }//GEN-LAST:event_PaisTxtField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            Eliminacion delete = new Eliminacion();
+            delete.Noticia(CodigoETxtField.getText());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -587,9 +674,173 @@ public class Noticia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    private void PaisTxtField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaisTxtField5MouseClicked
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        jComboBox1.removeAllItems();
+        try{
+            Visualizacion hackathons = new Visualizacion();
+            ArrayList<String> listaIds = hackathons.HackathonID();
+            while(listaIds.isEmpty()==false){
+                jComboBox1.addItem(listaIds.get(0));
+                listaIds.remove(0);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
         // TODO add your handling code here:
-    }//GEN-LAST:event_PaisTxtField5MouseClicked
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url="jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;user=vini;password=2215";
+            Connection con = DriverManager.getConnection(url);
+            String query = "insert into Attendant(id, title, header, textN, picture, registerDate, author, idHackathon) values(?,?,?,?,?,?,?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, NombreTxtField.getText());
+            pst.setString(3, PaisTxtField.getText());
+            pst.setString(4, PaisTxtField1.getText());
+            pst.setBytes(5, person_image);
+            pst.setString(5, PaisTxtField3.getText());
+            pst.setString(6, PaisTxtField4.getText());
+            pst.setString(7, jComboBox1.getSelectedItem().toString());
+            pst.executeUpdate();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String column = "";
+        if(jRadioButton2.isSelected()){
+            column = "id";
+            try{
+                Modificar modify = new Modificar();                
+                modify.Noticia(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton1.isSelected()){
+            column = "title";
+            try{
+                Modificar modify = new Modificar();
+                modify.Noticia(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton3.isSelected()){
+            column = "header";
+            try{
+                Modificar modify = new Modificar();
+                modify.Noticia(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton4.isSelected()){
+            column = "textN";
+            try{
+                Modificar modify = new Modificar();
+                modify.Noticia(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton6.isSelected()){
+            column = "registerDate";
+            try{
+                Modificar modify = new Modificar();
+                modify.Noticia(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton5.isSelected()){
+            column = "author";
+            try{
+                Modificar modify = new Modificar();
+                modify.Noticia(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton7.isSelected()){
+            column = "picture";
+            try{
+                Modificar modify = new Modificar();
+                modify.NoticiaImagen(column, person_image, CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton8.isSelected()){
+            column = "idHackathon";
+            try{
+                Modificar modify = new Modificar();
+                modify.Noticia(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try{
+            DefaultListModel model = new DefaultListModel();
+            HackatonList1.setModel(model);
+            Visualizacion view = new Visualizacion();
+            ArrayList<String>listaNoticias=view.Noticia();
+            for (int i = 0; i < listaNoticias.size(); i++) {
+                model.add(i, listaNoticias.get(i));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try{
+            Conexion con = new Conexion();
+            Connection cone = con.Conexion();
+            Statement stmt = cone.createStatement();
+            String idCat = HackatonList1.getSelectedValue();
+            String query = "select picture from Attendant \n" +
+            "join telAttendant on Attendant.idCard = telAttendant.idCard\n" +
+            "where(CONCAT(Attendant.idCard,' ',nameA,' ',surname1,' ',surname2,' ',profession,' ',email,' ',telephone)='"+idCat+"')";
+            ResultSet result =stmt.executeQuery(query);
+            while(result.next()==true){
+                byte[] img = (result.getBytes("picture"));
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+                imagenLabel.setIcon(imageIcon);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+            Conexion con = new Conexion();
+            Connection cone = con.Conexion();
+            Statement stmt = cone.createStatement();
+            String idCat = HackatonList1.getSelectedValue();
+            String query = "select picture from News\n" +
+                        "join Hackathon on Hackathon.id = News.idHackathon\n" +
+                        "where (CONCAT(News.id,title,header,textN,registerDate,author,Hackathon.name)='"+idCat+"')";
+            ResultSet result =stmt.executeQuery(query);
+            while(result.next()==true){
+                byte[] img = (result.getBytes("picture"));
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+                imagenLabel.setIcon(imageIcon);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -638,7 +889,6 @@ public class Noticia extends javax.swing.JFrame {
     private javax.swing.JTextField PaisTxtField2;
     private javax.swing.JTextField PaisTxtField3;
     private javax.swing.JTextField PaisTxtField4;
-    private javax.swing.JTextField PaisTxtField5;
     private javax.swing.JTextField ValorMTxtField;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel imagenLabel;
@@ -646,6 +896,9 @@ public class Noticia extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -658,6 +911,7 @@ public class Noticia extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JRadioButton jRadioButton7;
+    private javax.swing.JRadioButton jRadioButton8;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

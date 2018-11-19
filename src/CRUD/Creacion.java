@@ -67,6 +67,14 @@ public class Creacion {
         pst.executeUpdate();
         return pst;
     }
+    public PreparedStatement HackathonPatrocinador(String id, String codeSponsor) throws ClassNotFoundException, SQLException{
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query = "insert into SponsorHackathon values('"+id+"','"+codeSponsor+"')";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.executeUpdate();
+        return pst;
+    }
     public PreparedStatement Requisito(String id, String nameR) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
