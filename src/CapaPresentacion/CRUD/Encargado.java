@@ -681,7 +681,12 @@ public class Encargado extends javax.swing.JFrame {
             pst.setString(5, ProfesionTxtField.getText());
             pst.setString(6, CorreoTxtField.getText());
             pst.setBytes(7, person_image);
-            pst.executeUpdate();            
+            pst.executeUpdate();
+            String query2 = "Insert into telAttendant(idCard,telephone) values (?,?);";
+            PreparedStatement pst2 = con.prepareStatement(query2);
+            pst2.setString(1, CedulaTxtField.getText());
+            pst2.setString(2, TelefonoTxtField.getText());
+            pst2.executeUpdate();
         }catch(ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e);
         }
