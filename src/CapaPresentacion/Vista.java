@@ -5,9 +5,13 @@
  */
 package CapaPresentacion;
 
+import CRUD.Visualizacion;
 import CapaPresentacion.CRUD.Equipo;
+import CapaPresentacion.CRUD.Noticia;
 import java.awt.Color;
 import java.io.File;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -35,12 +39,24 @@ public class Vista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        NoticiasBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listainfo = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         RegistrarBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        VerInformacion = new javax.swing.JButton();
+
+        NoticiasBtn.setBackground(new java.awt.Color(102, 0, 0));
+        NoticiasBtn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        NoticiasBtn.setForeground(new java.awt.Color(255, 255, 255));
+        NoticiasBtn.setText("News");
+        NoticiasBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoticiasBtnActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Hackathon CR");
@@ -49,10 +65,10 @@ public class Vista extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("HACKATHON CR");
 
-        jList1.setBackground(new java.awt.Color(133, 35, 35));
-        jList1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList1.setForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jList1);
+        listainfo.setBackground(new java.awt.Color(133, 35, 35));
+        listainfo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        listainfo.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(listainfo);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -67,6 +83,16 @@ public class Vista extends javax.swing.JFrame {
             }
         });
 
+        VerInformacion.setBackground(new java.awt.Color(102, 0, 0));
+        VerInformacion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        VerInformacion.setForeground(new java.awt.Color(255, 255, 255));
+        VerInformacion.setText("Ver");
+        VerInformacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerInformacionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,14 +100,17 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
                             .addComponent(RegistrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 452, Short.MAX_VALUE))
-                    .addComponent(jSeparator1))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(VerInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -89,8 +118,10 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(VerInformacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -107,6 +138,27 @@ public class Vista extends javax.swing.JFrame {
         new Equipo().setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_RegistrarBtnActionPerformed
+
+    private void NoticiasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoticiasBtnActionPerformed
+        new Noticia().setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NoticiasBtnActionPerformed
+
+    private void VerInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerInformacionActionPerformed
+        // TODO add your handling code here:
+        
+        try{
+            DefaultListModel model = new DefaultListModel();
+            listainfo.setModel(model);
+            Visualizacion view = new Visualizacion();
+            ArrayList<String>listaEncargado=view.Hackathon();
+            for (int i = 0; i < listaEncargado.size(); i++) {
+                model.add(i, listaEncargado.get(i));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_VerInformacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,11 +196,13 @@ public class Vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton NoticiasBtn;
     private javax.swing.JButton RegistrarBtn;
+    private javax.swing.JButton VerInformacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JList<String> listainfo;
     // End of variables declaration//GEN-END:variables
 }

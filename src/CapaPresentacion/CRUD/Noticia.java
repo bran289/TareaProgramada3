@@ -55,8 +55,8 @@ public class Noticia extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jButton5 = new javax.swing.JButton();
         CodigoTxtField = new javax.swing.JTextField();
-        NombreTxtField = new javax.swing.JTextField();
-        PaisTxtField = new javax.swing.JTextField();
+        titulo = new javax.swing.JTextField();
+        headerField = new javax.swing.JTextField();
         CodigoMTxtField = new javax.swing.JTextField();
         ValorMTxtField = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
@@ -80,9 +80,9 @@ public class Noticia extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         CodigoETxtField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        PaisTxtField1 = new javax.swing.JTextField();
-        PaisTxtField3 = new javax.swing.JTextField();
-        PaisTxtField4 = new javax.swing.JTextField();
+        textfield = new javax.swing.JTextField();
+        datefield = new javax.swing.JTextField();
+        autorfield = new javax.swing.JTextField();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
@@ -123,21 +123,21 @@ public class Noticia extends javax.swing.JFrame {
             }
         });
 
-        NombreTxtField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        NombreTxtField.setForeground(new java.awt.Color(153, 153, 153));
-        NombreTxtField.setText("Title");
-        NombreTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
+        titulo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        titulo.setForeground(new java.awt.Color(153, 153, 153));
+        titulo.setText("Title");
+        titulo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NombreTxtFieldMouseClicked(evt);
+                tituloMouseClicked(evt);
             }
         });
 
-        PaisTxtField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        PaisTxtField.setForeground(new java.awt.Color(153, 153, 153));
-        PaisTxtField.setText("Header");
-        PaisTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
+        headerField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        headerField.setForeground(new java.awt.Color(153, 153, 153));
+        headerField.setText("Header");
+        headerField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PaisTxtFieldMouseClicked(evt);
+                headerFieldMouseClicked(evt);
             }
         });
 
@@ -275,35 +275,35 @@ public class Noticia extends javax.swing.JFrame {
             }
         });
 
-        PaisTxtField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        PaisTxtField1.setForeground(new java.awt.Color(153, 153, 153));
-        PaisTxtField1.setText("Text");
-        PaisTxtField1.addMouseListener(new java.awt.event.MouseAdapter() {
+        textfield.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        textfield.setForeground(new java.awt.Color(153, 153, 153));
+        textfield.setText("Text");
+        textfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PaisTxtField1MouseClicked(evt);
+                textfieldMouseClicked(evt);
             }
         });
-        PaisTxtField1.addActionListener(new java.awt.event.ActionListener() {
+        textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PaisTxtField1ActionPerformed(evt);
+                textfieldActionPerformed(evt);
             }
         });
 
-        PaisTxtField3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        PaisTxtField3.setForeground(new java.awt.Color(153, 153, 153));
-        PaisTxtField3.setText("Register Date");
-        PaisTxtField3.addMouseListener(new java.awt.event.MouseAdapter() {
+        datefield.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        datefield.setForeground(new java.awt.Color(153, 153, 153));
+        datefield.setText("Register Date");
+        datefield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PaisTxtField3MouseClicked(evt);
+                datefieldMouseClicked(evt);
             }
         });
 
-        PaisTxtField4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        PaisTxtField4.setForeground(new java.awt.Color(153, 153, 153));
-        PaisTxtField4.setText("Author");
-        PaisTxtField4.addMouseListener(new java.awt.event.MouseAdapter() {
+        autorfield.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        autorfield.setForeground(new java.awt.Color(153, 153, 153));
+        autorfield.setText("Author");
+        autorfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PaisTxtField4MouseClicked(evt);
+                autorfieldMouseClicked(evt);
             }
         });
 
@@ -420,15 +420,15 @@ public class Noticia extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(CodigoTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NombreTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(PaisTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(headerField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PaisTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PaisTxtField3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(datefield, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PaisTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(autorfield, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(64, Short.MAX_VALUE))
@@ -468,11 +468,11 @@ public class Noticia extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(CodigoTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NombreTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PaisTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PaisTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PaisTxtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PaisTxtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(headerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datefield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(autorfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -549,17 +549,17 @@ public class Noticia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CodigoTxtFieldMouseClicked
 
-    private void NombreTxtFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreTxtFieldMouseClicked
-        NombreTxtField.setText("");
-        NombreTxtField.setForeground(Color.BLACK);
+    private void tituloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tituloMouseClicked
+        titulo.setText("");
+        titulo.setForeground(Color.BLACK);
         // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTxtFieldMouseClicked
+    }//GEN-LAST:event_tituloMouseClicked
 
-    private void PaisTxtFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaisTxtFieldMouseClicked
-        PaisTxtField.setText("");
-        PaisTxtField.setForeground(Color.BLACK);
+    private void headerFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerFieldMouseClicked
+        headerField.setText("");
+        headerField.setForeground(Color.BLACK);
         // TODO add your handling code here:
-    }//GEN-LAST:event_PaisTxtFieldMouseClicked
+    }//GEN-LAST:event_headerFieldMouseClicked
 
     private void CodigoMTxtFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CodigoMTxtFieldMouseClicked
         CodigoMTxtField.setText("");
@@ -601,11 +601,11 @@ public class Noticia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CodigoETxtFieldMouseClicked
 
-    private void PaisTxtField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaisTxtField1MouseClicked
-        PaisTxtField1.setText("");
-        PaisTxtField1.setForeground(Color.BLACK);
+    private void textfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textfieldMouseClicked
+        textfield.setText("");
+        textfield.setForeground(Color.BLACK);
         // TODO add your handling code here:
-    }//GEN-LAST:event_PaisTxtField1MouseClicked
+    }//GEN-LAST:event_textfieldMouseClicked
 
     private void PaisTxtField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaisTxtField2MouseClicked
         PaisTxtField2.setText("");
@@ -613,21 +613,21 @@ public class Noticia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PaisTxtField2MouseClicked
 
-    private void PaisTxtField3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaisTxtField3MouseClicked
-        PaisTxtField3.setText("");
-        PaisTxtField3.setForeground(Color.BLACK);
+    private void datefieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datefieldMouseClicked
+        datefield.setText("");
+        datefield.setForeground(Color.BLACK);
         // TODO add your handling code here:
-    }//GEN-LAST:event_PaisTxtField3MouseClicked
+    }//GEN-LAST:event_datefieldMouseClicked
 
-    private void PaisTxtField4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PaisTxtField4MouseClicked
-        PaisTxtField4.setText("");
-        PaisTxtField4.setForeground(Color.BLACK);
+    private void autorfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autorfieldMouseClicked
+        autorfield.setText("");
+        autorfield.setForeground(Color.BLACK);
         // TODO add your handling code here:
-    }//GEN-LAST:event_PaisTxtField4MouseClicked
+    }//GEN-LAST:event_autorfieldMouseClicked
 
-    private void PaisTxtField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaisTxtField1ActionPerformed
+    private void textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PaisTxtField1ActionPerformed
+    }//GEN-LAST:event_textfieldActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
@@ -697,16 +697,16 @@ public class Noticia extends javax.swing.JFrame {
         try{
             Conexion cone = new Conexion();
             Connection con = cone.Conexion();
-            String query = "insert into Attendant(id, title, header, textN, picture, registerDate, author, idHackathon) values(?,?,?,?,?,?,?,?)";
+            String query = "insert into News(id, title, header, textN, picture, registerDate, author, idHackathon) values(?,?,?,?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CodigoTxtField.getText());
-            pst.setString(2, NombreTxtField.getText());
-            pst.setString(3, PaisTxtField.getText());
-            pst.setString(4, PaisTxtField1.getText());
+            pst.setString(2, titulo.getText());
+            pst.setString(3, headerField.getText());
+            pst.setString(4, textfield.getText());
             pst.setBytes(5, person_image);
-            pst.setString(5, PaisTxtField3.getText());
-            pst.setString(6, PaisTxtField4.getText());
-            pst.setString(7, jComboBox1.getSelectedItem().toString());
+            pst.setString(6, datefield.getText());
+            pst.setString(7, autorfield.getText());
+            pst.setString(8, jComboBox1.getSelectedItem().toString());
             pst.executeUpdate();
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -882,14 +882,12 @@ public class Noticia extends javax.swing.JFrame {
     private javax.swing.JTextField CodigoMTxtField;
     private javax.swing.JTextField CodigoTxtField;
     private javax.swing.JList<String> HackatonList1;
-    private javax.swing.JTextField NombreTxtField;
-    private javax.swing.JTextField PaisTxtField;
-    private javax.swing.JTextField PaisTxtField1;
     private javax.swing.JTextField PaisTxtField2;
-    private javax.swing.JTextField PaisTxtField3;
-    private javax.swing.JTextField PaisTxtField4;
     private javax.swing.JTextField ValorMTxtField;
+    private javax.swing.JTextField autorfield;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField datefield;
+    private javax.swing.JTextField headerField;
     private javax.swing.JLabel imagenLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -917,5 +915,7 @@ public class Noticia extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JTextField textfield;
+    private javax.swing.JTextField titulo;
     // End of variables declaration//GEN-END:variables
 }

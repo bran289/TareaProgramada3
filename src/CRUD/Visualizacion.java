@@ -163,4 +163,16 @@ public class Visualizacion {
         }  
         return listaOrganizadores;
     }
+        public ArrayList<String> Equipos() throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaEquipos = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select nameT,projectDescription,idHackathon from Team";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaEquipos.add(0, (rs.getString("nameT")+" "+rs.getString("projectDescription")+" "+rs.getString("idHackathon")));
+        }  
+        return listaEquipos;
+    }
 }

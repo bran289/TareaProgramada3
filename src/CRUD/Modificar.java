@@ -100,7 +100,7 @@ public class Modificar {
     public PreparedStatement Organizador(String columna,String modificacion,String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
-        String query = "UPDATE Organizer SET "+columna+" = '"+modificacion+"' WHERE id = "+id+";";
+        String query = "UPDATE Organizer SET "+columna+" = '"+modificacion+"' WHERE code = "+id+";";
         PreparedStatement pst = con.prepareStatement(query);
         pst.executeUpdate();
         return pst;

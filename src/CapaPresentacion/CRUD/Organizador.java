@@ -5,6 +5,9 @@
  */
 package CapaPresentacion.CRUD;
 
+import CRUD.Eliminacion;
+import CRUD.Modificar;
+import CRUD.Visualizacion;
 import DataBase.Conexion;
 import java.awt.Color;
 import java.awt.Image;
@@ -13,6 +16,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -82,6 +89,7 @@ public class Organizador extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jRadioButton8 = new javax.swing.JRadioButton();
+        jButton5 = new javax.swing.JButton();
 
         HackatonList.setBackground(new java.awt.Color(133, 35, 35));
         HackatonList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -214,6 +222,11 @@ public class Organizador extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(102, 0, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Confirm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -222,7 +235,7 @@ public class Organizador extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setText("Nombre");
+        jRadioButton1.setText("Name");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -232,7 +245,7 @@ public class Organizador extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("Código");
+        jRadioButton2.setText("Code");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
@@ -242,7 +255,7 @@ public class Organizador extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText("País");
+        jRadioButton3.setText("Country");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton3ActionPerformed(evt);
@@ -252,7 +265,7 @@ public class Organizador extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton4.setText("Ciudad");
+        jRadioButton4.setText("City");
         jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton4ActionPerformed(evt);
@@ -262,7 +275,7 @@ public class Organizador extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton5);
         jRadioButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton5.setText("Teléfono");
+        jRadioButton5.setText("Phone");
         jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton5ActionPerformed(evt);
@@ -272,7 +285,7 @@ public class Organizador extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton6);
         jRadioButton6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton6.setText("Dirección");
+        jRadioButton6.setText("Address");
         jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton6ActionPerformed(evt);
@@ -282,7 +295,7 @@ public class Organizador extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton7);
         jRadioButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton7.setText("Correo");
+        jRadioButton7.setText("mail");
         jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton7ActionPerformed(evt);
@@ -310,6 +323,11 @@ public class Organizador extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(102, 0, 0));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Confirm");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         HackatonList1.setBackground(new java.awt.Color(133, 35, 35));
         HackatonList1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -322,7 +340,12 @@ public class Organizador extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(102, 0, 0));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Show");
+        jButton4.setText("Show image");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jRadioButton8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton8.setForeground(new java.awt.Color(255, 255, 255));
@@ -330,6 +353,15 @@ public class Organizador extends javax.swing.JFrame {
         jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(102, 0, 0));
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Show");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
             }
         });
 
@@ -408,12 +440,16 @@ public class Organizador extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButton8)
+                            .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(264, 264, 264)
+                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 276, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,7 +522,9 @@ public class Organizador extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton4))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton5)
+                        .addComponent(jButton4)))
                 .addContainerGap())
         );
 
@@ -625,7 +663,143 @@ public class Organizador extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        try{
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
+            //String query = "insert into Sponsor(code, name, website, logo) values(?,?,?,?)";
+            String query = "insert into Organizer(code,nameO,country,city,addressO,email,logo) values(?,?,?,?,?,?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, NombreTxtField.getText());
+            pst.setString(3, PaisTxtField.getText());
+            pst.setString(4, CiudadTxtField.getText());
+            pst.setString(5, DireccionTxtField.getText());
+            pst.setString(6, CorreoTxtField.getText());
+            pst.setBytes(7, person_image);
+            pst.executeUpdate();            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        try{
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
+            //String query = "insert into Sponsor(code, name, website, logo) values(?,?,?,?)";
+            String query = "insert into telOrganizer(codeOrganizer,telephone) values(?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, TelefonoTxtField.getText());
+            pst.executeUpdate();            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try{
+            Conexion con = new Conexion();
+            Connection cone = con.Conexion();
+            Statement stmt = cone.createStatement();
+            String idCat = HackatonList1.getSelectedValue();
+            String query = "select logo from Organizer where(CONCAT(code,' ',nameO,' ',country,' ',city,' ',addressO,' ',email)='"+idCat+"');";
+            ResultSet result =stmt.executeQuery(query);
+            while(result.next()==true){
+                byte[] img = (result.getBytes("logo"));
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(imagenLabel.getWidth(),imagenLabel.getHeight(),Image.SCALE_SMOOTH));
+                imagenLabel.setIcon(imageIcon);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try{
+            DefaultListModel model = new DefaultListModel();
+            HackatonList1.setModel(model);
+            Visualizacion view = new Visualizacion();
+            ArrayList<String>listaOrganizer=view.Organizador();
+            for (int i = 0; i < listaOrganizer.size(); i++) {
+                model.add(i, listaOrganizer.get(i));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+          try{
+            Eliminacion delete = new Eliminacion();
+            delete.Organizador(CodigoETxtField.getText());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String column = "";
+        if(jRadioButton2.isSelected()){
+            column = "code";
+            try{
+                Modificar modify = new Modificar();
+                modify.Organizador(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton1.isSelected()){
+            column = "nameO";
+            try{
+                Modificar modify = new Modificar();
+                modify.Organizador(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton4.isSelected()){
+            column = "city";
+            try{
+                Modificar modify = new Modificar();
+                modify.Organizador(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton7.isSelected()){
+            column = "email";
+            try{
+                Modificar modify = new Modificar();
+                modify.Organizador(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton6.isSelected()){
+            column = "addressO";
+            try{
+                Modificar modify = new Modificar();
+                modify.Organizador(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        else if(jRadioButton3.isSelected()){
+            column = "country";
+            try{
+                Modificar modify = new Modificar();
+                modify.Organizador(column, ValorMTxtField.getText(), CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else if(jRadioButton4.isSelected()){
+            column = "logo";
+            try{
+                Modificar modify = new Modificar();
+                modify.OrganizadorImagen(column, person_image, CodigoMTxtField.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -682,6 +856,7 @@ public class Organizador extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

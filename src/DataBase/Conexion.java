@@ -19,7 +19,7 @@ public class Conexion {
     public Connection Conexion() throws ClassNotFoundException, SQLException{
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=HackathonCR;";
-        Connection con=DriverManager.getConnection(connectionUrl, "vini", "2215");
+        Connection con=DriverManager.getConnection(connectionUrl, "admin", "1234");
         return con;              
     }
 }

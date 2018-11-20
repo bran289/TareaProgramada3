@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -671,22 +672,17 @@ public class Encargado extends javax.swing.JFrame {
         try{
             Conexion cone = new Conexion();
             Connection con = cone.Conexion();
-            String query = "insert into Attendant(idCard, nameA,surname1,surname2,profession, picture,email) values(?,?,?,?,?,?,?)";
+            String query = "insert into Attendant(idCard, nameA, surname1, surname2, profession, email, picture) values(?,?,?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CedulaTxtField.getText());
             pst.setString(2, NombreTxtField.getText());
             pst.setString(3, ApellidoTxtField1.getText());
             pst.setString(4, ApellidoTxtField2.getText());
             pst.setString(5, ProfesionTxtField.getText());
-            pst.setBytes(6, person_image);
-            pst.setString(7, CorreoTxtField.getText());
-            pst.executeUpdate();    
-            String query2 = "Insert into telAttendant(idCard,telephone) values(?,?)";
-            PreparedStatement pst2 = con.prepareStatement(query2);
-            pst2.setString(1, CedulaTxtField.getText());
-            pst2.setString(2, TelefonoTxtField.getText());
-            pst2.executeUpdate();
-        }catch(Exception e){
+            pst.setString(6, CorreoTxtField.getText());
+            pst.setBytes(7, person_image);
+            pst.executeUpdate();            
+        }catch(ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e);
         }
         // TODO add your handling code here:

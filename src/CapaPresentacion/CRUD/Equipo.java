@@ -220,7 +220,7 @@ public class Equipo extends javax.swing.JFrame {
             pst.setString(1, CodigoTxtField.getText());
             pst.setString(2, CodigoTxtField1.getText());
             pst.setBytes(3, person_image);
-            pst.setString(2, jComboBox1.getSelectedItem().toString());
+            pst.setString(4, jComboBox1.getSelectedItem().toString());
             pst.executeUpdate();            
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);

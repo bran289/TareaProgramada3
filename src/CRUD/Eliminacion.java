@@ -83,7 +83,7 @@ public class Eliminacion {
     public PreparedStatement Organizador(String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
-        String query = "delete Organizer where(id="+id+")";
+        String query = "delete Organizer where(code="+id+")";
         PreparedStatement pst = con.prepareStatement(query);
         pst.executeUpdate();
         return pst;
@@ -91,7 +91,7 @@ public class Eliminacion {
     public PreparedStatement Patrocinador(String id) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
-        String query = "delete Sponsor where(id="+id+")";
+        String query = "delete Sponsor where(code="+id+")";
         PreparedStatement pst = con.prepareStatement(query);
         pst.executeUpdate();
         return pst;

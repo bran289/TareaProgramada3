@@ -106,15 +106,15 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="CodigoTxtField" min="-2" pref="130" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="NombreTxtField" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="titulo" min="-2" pref="130" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="PaisTxtField" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Component id="headerField" min="-2" pref="120" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="PaisTxtField1" min="-2" pref="115" max="-2" attributes="0"/>
+                              <Component id="textfield" min="-2" pref="115" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="PaisTxtField3" min="-2" pref="115" max="-2" attributes="0"/>
+                              <Component id="datefield" min="-2" pref="115" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="PaisTxtField4" min="-2" pref="115" max="-2" attributes="0"/>
+                              <Component id="autorfield" min="-2" pref="115" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jComboBox1" min="-2" pref="120" max="-2" attributes="0"/>
                           </Group>
@@ -167,11 +167,11 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="CodigoTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="NombreTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="PaisTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="PaisTxtField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="PaisTxtField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="PaisTxtField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="titulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="headerField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="datefield" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="autorfield" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -275,7 +275,7 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CodigoTxtFieldMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="NombreTxtField">
+    <Component class="javax.swing.JTextField" name="titulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
@@ -286,10 +286,10 @@
         <Property name="text" type="java.lang.String" value="Title"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="NombreTxtFieldMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tituloMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="PaisTxtField">
+    <Component class="javax.swing.JTextField" name="headerField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
@@ -300,7 +300,7 @@
         <Property name="text" type="java.lang.String" value="Header"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PaisTxtFieldMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="headerFieldMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="CodigoMTxtField">
@@ -572,7 +572,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="PaisTxtField1">
+    <Component class="javax.swing.JTextField" name="textfield">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
@@ -583,11 +583,11 @@
         <Property name="text" type="java.lang.String" value="Text"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PaisTxtField1MouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PaisTxtField1ActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textfieldMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="PaisTxtField3">
+    <Component class="javax.swing.JTextField" name="datefield">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
@@ -598,10 +598,10 @@
         <Property name="text" type="java.lang.String" value="Register Date"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PaisTxtField3MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="datefieldMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="PaisTxtField4">
+    <Component class="javax.swing.JTextField" name="autorfield">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
@@ -612,7 +612,7 @@
         <Property name="text" type="java.lang.String" value="Author"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PaisTxtField4MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="autorfieldMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton4">

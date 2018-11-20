@@ -5,6 +5,7 @@
  */
 package CapaPresentacion;
 
+import CRUD.Visualizacion;
 import CapaPresentacion.CRUD.Categoria;
 import CapaPresentacion.CRUD.Encargado;
 import CapaPresentacion.CRUD.Hackathon;
@@ -15,6 +16,9 @@ import CapaPresentacion.Reportes.General;
 import CapaPresentacion.Reportes.HackathonPeriodo;
 import CapaPresentacion.Reportes.HackathonTematica;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,7 +50,7 @@ public class Administrador extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        HackatonList = new javax.swing.JList<>();
+        HackatonLista = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         InscripcionesList = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
@@ -60,6 +64,7 @@ public class Administrador extends javax.swing.JFrame {
         HTBtn = new javax.swing.JButton();
         HPBtn = new javax.swing.JButton();
         EBtn = new javax.swing.JButton();
+        VerBoton = new javax.swing.JButton();
 
         ReportesBtn3.setBackground(new java.awt.Color(102, 0, 0));
         ReportesBtn3.setForeground(new java.awt.Color(255, 255, 255));
@@ -87,10 +92,10 @@ public class Administrador extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Hackathon");
 
-        HackatonList.setBackground(new java.awt.Color(133, 35, 35));
-        HackatonList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        HackatonList.setForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane2.setViewportView(HackatonList);
+        HackatonLista.setBackground(new java.awt.Color(133, 35, 35));
+        HackatonLista.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        HackatonLista.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setViewportView(HackatonLista);
 
         InscripcionesList.setBackground(new java.awt.Color(133, 35, 35));
         InscripcionesList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -187,6 +192,16 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
 
+        VerBoton.setBackground(new java.awt.Color(102, 0, 0));
+        VerBoton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        VerBoton.setForeground(new java.awt.Color(255, 255, 255));
+        VerBoton.setText("Ver");
+        VerBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerBotonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,8 +220,11 @@ public class Administrador extends javax.swing.JFrame {
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel1))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(VerBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
@@ -249,7 +267,8 @@ public class Administrador extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(VerBoton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -316,6 +335,32 @@ public class Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_EBtnActionPerformed
 
+    private void VerBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerBotonActionPerformed
+        // TODO add your handling code here:
+        try{
+            DefaultListModel model = new DefaultListModel();
+            HackatonLista.setModel(model);
+            Visualizacion view = new Visualizacion();
+            ArrayList<String>listaEncargado=view.Hackathon();
+            for (int i = 0; i < listaEncargado.size(); i++) {
+                model.add(i, listaEncargado.get(i));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        try{
+            DefaultListModel model = new DefaultListModel();
+            InscripcionesList.setModel(model);
+            Visualizacion view = new Visualizacion();
+            ArrayList<String>listaEncargado=view.Equipos();
+            for (int i = 0; i < listaEncargado.size(); i++) {
+                model.add(i, listaEncargado.get(i));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_VerBotonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -358,12 +403,13 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JButton HPBtn;
     private javax.swing.JButton HTBtn;
     private javax.swing.JButton HackathonBtn;
-    private javax.swing.JList<String> HackatonList;
+    private javax.swing.JList<String> HackatonLista;
     private javax.swing.JList<String> InscripcionesList;
     private javax.swing.JButton OrganizadorBtn;
     private javax.swing.JButton PatrocinadorBtn;
     private javax.swing.JButton RGBtn;
     private javax.swing.JButton ReportesBtn3;
+    private javax.swing.JButton VerBoton;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
