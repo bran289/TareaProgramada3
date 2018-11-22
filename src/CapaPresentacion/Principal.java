@@ -39,6 +39,7 @@ public class Principal extends javax.swing.JFrame {
         vistaRdBtn = new javax.swing.JRadioButton();
         AdminRdBtn = new javax.swing.JRadioButton();
         OrgRdBtn = new javax.swing.JRadioButton();
+        IniciarSesionBtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Hackathon CR");
@@ -102,6 +103,15 @@ public class Principal extends javax.swing.JFrame {
         OrgRdBtn.setForeground(new java.awt.Color(255, 255, 255));
         OrgRdBtn.setText("Organizer");
 
+        IniciarSesionBtn1.setBackground(new java.awt.Color(102, 0, 0));
+        IniciarSesionBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        IniciarSesionBtn1.setText("Sign in");
+        IniciarSesionBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IniciarSesionBtn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +130,8 @@ public class Principal extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(nombreUsuario)
                                 .addComponent(contraseñaUsuario)
-                                .addComponent(IniciarSesionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(IniciarSesionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(IniciarSesionBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(188, 188, 188)
                         .addComponent(jLabel1)))
@@ -145,7 +156,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(OrgRdBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(IniciarSesionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(IniciarSesionBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -179,6 +192,19 @@ public class Principal extends javax.swing.JFrame {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_IniciarSesionBtnActionPerformed
+
+    private void IniciarSesionBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarSesionBtn1ActionPerformed
+        // TODO add your handling code here:
+        if(this.vistaRdBtn.isSelected()){
+            new Vista().setVisible(true);
+        }
+        else if(this.AdminRdBtn.isSelected()){
+            new Registrarse().setVisible(true);
+        }
+        else if(this.OrgRdBtn.isSelected()){
+            new Registrarse().setVisible(true);
+        }
+    }//GEN-LAST:event_IniciarSesionBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,6 +246,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton AdminRdBtn;
     private javax.swing.JButton IniciarSesionBtn;
+    private javax.swing.JButton IniciarSesionBtn1;
     private javax.swing.JRadioButton OrgRdBtn;
     private javax.swing.ButtonGroup btngroup;
     private javax.swing.JTextField contraseñaUsuario;

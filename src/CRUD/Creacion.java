@@ -36,6 +36,14 @@ public class Creacion {
         pst.executeUpdate();
         return pst;
     }
+    public PreparedStatement Usuario(String usuario, String rol,String Contraseia) throws ClassNotFoundException, SQLException{
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query = "insert into login(usuario, rol, contrasenia) values('"+usuario+"','"+rol+"',PWDENCRYPT('"+Contraseia+"'))";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.executeUpdate();
+        return pst;
+    }
     public PreparedStatement EncargadoTel(String id, String telephone) throws ClassNotFoundException, SQLException{
         Conexion conexion = new Conexion();
         Connection con = conexion.Conexion();
