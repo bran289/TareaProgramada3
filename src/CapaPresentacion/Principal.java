@@ -6,7 +6,13 @@
 
 package CapaPresentacion;
 
+import DataBase.Conexion;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import DataBase.ValidacionUsuario;
 
 /**
  *
@@ -181,29 +187,40 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaUsuarioMouseClicked
 
     private void IniciarSesionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarSesionBtnActionPerformed
-        if(this.vistaRdBtn.isSelected()){
-            new Vista().setVisible(true);
-        }
-        else if(this.AdminRdBtn.isSelected()){
-            new Administrador().setVisible(true);
-        }
-        else if(this.OrgRdBtn.isSelected()){
-            new Organizador().setVisible(true);
-        }
+            if(this.vistaRdBtn.isSelected()){           
+                new Vista().setVisible(true);
+            }
+            else if(this.AdminRdBtn.isSelected()){
+                try{
+                   ValidacionUsuario validar = new ValidacionUsuario();
+                   String comp=validar.validarAdmin(nombreUsuario.getText(),contraseñaUsuario.getText());
+                   if(comp.equals(nombreUsuario.getText())){
+                       new Administrador().setVisible(true);
+                   }else{
+                       JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrectos");
+                   }
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
+            else if(this.OrgRdBtn.isSelected()){
+                try{
+                   ValidacionUsuario validar = new ValidacionUsuario();
+                   String comp=validar.validarOrgan(nombreUsuario.getText(),contraseñaUsuario.getText());
+                   if(comp.equals(nombreUsuario.getText())){
+                       new Administrador().setVisible(true);
+                   }else{
+                       JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrectos");
+                   }
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
         // TODO add your handling code here:
     }//GEN-LAST:event_IniciarSesionBtnActionPerformed
 
     private void IniciarSesionBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarSesionBtn1ActionPerformed
-        // TODO add your handling code here:
-        if(this.vistaRdBtn.isSelected()){
-            new Vista().setVisible(true);
-        }
-        else if(this.AdminRdBtn.isSelected()){
-            new Registrarse().setVisible(true);
-        }
-        else if(this.OrgRdBtn.isSelected()){
-            new Registrarse().setVisible(true);
-        }
+        new Registro().setVisible(true);
     }//GEN-LAST:event_IniciarSesionBtn1ActionPerformed
 
     /**
