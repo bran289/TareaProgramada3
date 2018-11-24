@@ -1258,6 +1258,17 @@ public class Hackathon extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
+        try{
+            Conexion cone = new Conexion();
+            Connection con = cone.Conexion();
+            String query = "Insert into Edition(idHackathon, edition) values(?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, CodigoTxtField.getText());
+            pst.setString(2, EdicionTxtField.getText());
+            pst.executeUpdate();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
