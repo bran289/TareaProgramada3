@@ -5,7 +5,11 @@
  */
 package CapaPresentacion.Reportes;
 
+import CRUD.Visualizacion;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +36,7 @@ public class HackathonTematica extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaListado = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -42,14 +46,19 @@ public class HackathonTematica extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("HACKATHON CR");
 
-        jList1.setBackground(new java.awt.Color(133, 35, 35));
-        jList1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList1.setForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jList1);
+        listaListado.setBackground(new java.awt.Color(133, 35, 35));
+        listaListado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        listaListado.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(listaListado);
 
         jButton1.setBackground(new java.awt.Color(102, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Show");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,6 +86,21 @@ public class HackathonTematica extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            DefaultListModel model = new DefaultListModel();
+            listaListado.setModel(model);
+            Visualizacion view = new Visualizacion();
+            ArrayList<String>ListaReportes=view.ListHackathones();
+            for (int i = 0; i < ListaReportes.size(); i++) {
+                model.add(i, ListaReportes.get(i));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,7 +140,7 @@ public class HackathonTematica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaListado;
     // End of variables declaration//GEN-END:variables
 }

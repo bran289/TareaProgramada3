@@ -77,6 +77,42 @@ public class Visualizacion {
         }  
         return listaNoticias;
     }
+    public ArrayList<String> ListHackathones() throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaHackathonesTematica = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select Hackathon.name as nombre, Count(idCat) as cantCat,\n" +
+"count(Team.nameT) as cantEquipo, count(Edition.edition) as cantEdi,\n" +
+"count(Hackathon.sponsorCode) as cantSpon\n" +
+"from Hackathon\n" +
+"join Team on Team.idHackathon = Hackathon.id\n" +
+"join Edition on Edition.idHackathon = Hackathon.id\n" +
+"group by Hackathon.topic, Hackathon.name";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaHackathonesTematica.add(0, (rs.getString("cantCat")));
+            listaHackathonesTematica.add(0, (rs.getString("cantEquipo")));
+            listaHackathonesTematica.add(0, (rs.getString("cantEdi")));
+            listaHackathonesTematica.add(0, (rs.getString("cantSpon")));
+            listaHackathonesTematica.add(0, (rs.getString("nombre")));
+        }  
+        return listaHackathonesTematica;
+    }
+    public ArrayList<String> cantidadTematica(String nombreHacka) throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaCantidad = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="SELECT count(topic) as cantidad\n" +
+"FROM Hackathon \n" +
+"WHERE topic='"+nombreHacka+"'";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaCantidad.add(0, (rs.getString("cantidad")));
+        }  
+        return listaCantidad;
+    }
     public ArrayList<String> OrganizerCode() throws ClassNotFoundException, SQLException{
         ArrayList<String> listaNoticias = new ArrayList<>();
         Conexion conexion = new Conexion();
@@ -98,6 +134,50 @@ public class Visualizacion {
         ResultSet rs = st.executeQuery(query);
         while(rs.next()){
             listaNoticias.add(0, (rs.getString("idCard")));
+        }  
+        return listaNoticias;
+    }
+    public ArrayList<String> ReporteGeneral(String topic) throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaNoticias = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select CONCAT(Hackathon.name,count(Hackathon.id), count(News.id) \n" +
+", count(Edition.edition),\n" +
+"count(Team.nameT)) as resultado\n" +
+"from Organizer\n" +
+"join Hackathon on Hackathon.codOrg = Organizer.code\n" +
+"join News on News.idHackathon = Hackathon.id\n" +
+"join Edition on Edition.idHackathon = Hackathon.id\n" +
+"join Team on Team.idHackathon = Hackathon.id\n" +
+"where(Hackathon.topic='"+topic+"')\n" +
+"group by nameO, Hackathon.topic, Hackathon.name";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaNoticias.add(0, (rs.getString("resultado")));
+        }  
+        return listaNoticias;
+    }
+        public ArrayList<String> ListadoxPeriodo(String fecha1, String fecha2) throws ClassNotFoundException, SQLException{
+        ArrayList<String> listaNoticias = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection con = conexion.Conexion();
+        String query ="select Hackathon.name as nombre, Count(idCat) as cantCat,\n" +
+"count(Team.nameT) as cantEquipo, count(Edition.edition) as cantEdi,\n" +
+"count(Hackathon.sponsorCode) as cantSpon\n" +
+"from Hackathon\n" +
+"join Team on Team.idHackathon = Hackathon.id\n" +
+"join Edition on Edition.idHackathon = Hackathon.id\n" +
+"where(startDate between '"+fecha1+"' and '"+fecha2+"')\n" +
+"group by Hackathon.topic, Hackathon.name";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+            listaNoticias.add(0, (rs.getString("cantCat")));
+            listaNoticias.add(0, (rs.getString("cantEquipo")));
+            listaNoticias.add(0, (rs.getString("cantEdi")));
+            listaNoticias.add(0, (rs.getString("cantSpon")));
+            listaNoticias.add(0, (rs.getString("nombre")));
         }  
         return listaNoticias;
     }
