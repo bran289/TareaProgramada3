@@ -208,7 +208,7 @@ public class Principal extends javax.swing.JFrame {
                    ValidacionUsuario validar = new ValidacionUsuario();
                    String comp=validar.validarOrgan(nombreUsuario.getText(),contraseñaUsuario.getText());
                    if(comp.equals(nombreUsuario.getText())){
-                       new Administrador().setVisible(true);
+                       new Organizador().setVisible(true);
                    }else{
                        JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrectos");
                    }
